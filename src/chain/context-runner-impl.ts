@@ -12,7 +12,7 @@ export class ResultWithContext extends Result {
   }
 }
 
-export class ContextRunnerImpl implements ContextRunner {
+export class ContextRunnerImpl implements ContextRunner { // 执行入口
   constructor(
     private readonly builderOrContext: ContextBuilder | Context,
     private readonly selectFields: SelectFields = baseSelectFields,
@@ -23,12 +23,12 @@ export class ContextRunnerImpl implements ContextRunner {
       this.builderOrContext instanceof Context
         ? this.builderOrContext
         : this.builderOrContext.build();
-    const instances = this.selectFields(req, context.fields, context.locations);
+    const instances = this.selectFields(req, context.fields, context.locations); // field 即当前验证的字段
     context.addFieldInstances(instances);
 
     const haltedInstances = new Set<string>();
 
-    for (const contextItem of context.stack) {
+    for (const contextItem of context.stack) { // 循环调用
       const promises = context.getData({ requiredOnly: true }).map(async instance => {
         const { location, path } = instance;
         const instanceKey = `${location}:${path}`;
@@ -37,7 +37,7 @@ export class ContextRunnerImpl implements ContextRunner {
         }
 
         try {
-          await contextItem.run(context, instance.value, {
+          await contextItem.run(context, instance.value, { // 调用 context-items 目录下 custom-condition 和 custom-validation 中的 run 方法
             req,
             location,
             path,

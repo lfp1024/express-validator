@@ -3,7 +3,7 @@ import * as Options from '../options';
 
 export interface Sanitizers<Return> {
   // custom sanitizers
-  customSanitizer(sanitizer: CustomSanitizer): Return;
+  customSanitizer(sanitizer: CustomSanitizer): Return; // 自定义数据消毒剂，先于 validator 被调用
   default(default_value: any): Return;
   replace(values_to_replace: any, new_value: any): Return;
 

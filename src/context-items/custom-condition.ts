@@ -5,7 +5,7 @@ import { ContextItem } from './context-item';
 export class CustomCondition implements ContextItem {
   constructor(private readonly condition: CustomValidator) {}
 
-  async run(_context: Context, value: any, meta: Meta) {
+  async run(_context: Context, value: any, meta: Meta) { // 自定义 if
     try {
       const result = this.condition(value, meta);
       await result;

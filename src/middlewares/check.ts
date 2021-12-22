@@ -22,7 +22,7 @@ export function check(
 
   const middleware = async (req: InternalRequest, _res: any, next: (err?: any) => void) => {
     try {
-      await runner.run(req);
+      await runner.run(req); // 中间件入口
       next();
     } catch (e) {
       next(e);
@@ -32,8 +32,8 @@ export function check(
   return Object.assign(
     middleware,
     bindAll(runner),
-    bindAll(new SanitizersImpl(builder, middleware as any)),
-    bindAll(new ValidatorsImpl(builder, middleware as any)),
+    bindAll(new SanitizersImpl(builder, middleware as any)), // 绑定所有sanitizer
+    bindAll(new ValidatorsImpl(builder, middleware as any)), // 绑定所有 validator
     bindAll(new ContextHandlerImpl(builder, middleware as any)),
     { builder },
   );

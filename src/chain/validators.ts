@@ -8,7 +8,7 @@ export interface Validators<Return> {
   withMessage(message: any): Return;
 
   // custom validators
-  custom(validator: CustomValidator): Return;
+  custom(validator: CustomValidator): Return; // 自定义选项的验证逻辑
   exists(options?: { checkFalsy?: boolean; checkNull?: boolean }): Return;
   isArray(options?: { min?: number; max?: number }): Return;
   isObject(options?: { strict?: boolean }): Return;

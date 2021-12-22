@@ -66,7 +66,7 @@ export function checkSchema(
 ): ValidationChain[] & {
   run: (req: Request) => Promise<ResultWithContext[]>;
 } {
-  const chains = Object.keys(schema).map(field => {
+  const chains = Object.keys(schema).map(field => { // field 为输入的参数key，config为该参数的验证逻辑
     const config = schema[field];
     const chain = check(field, ensureLocations(config, defaultLocations), config.errorMessage);
 
@@ -83,9 +83,9 @@ export function checkSchema(
         }
 
         // Using "!" because typescript doesn't know it isn't undefined.
-        const methodCfg = config[method]!;
+        const methodCfg = config[method]!; // 拿到 method 对应的 配置
 
-        let options: any[] = methodCfg === true ? [] : methodCfg.options ?? [];
+        let options: any[] = methodCfg === true ? [] : methodCfg.options ?? []; // 更详细的验证配置，如果没有置为 true，只有基础验证。e.g. custom.options 为 fn
         if (options != null && !Array.isArray(options)) {
           options = [options];
         }
@@ -98,7 +98,7 @@ export function checkSchema(
           chain.not();
         }
 
-        (chain[method] as any)(...options);
+        (chain[method] as any)(...options); // 调用方法 e.g. isIn() 把 options 传入。实际调用的是 ContextBuilder#addItem，非立即执行
 
         if (isValidatorOptions(method, methodCfg) && methodCfg.errorMessage) {
           chain.withMessage(methodCfg.errorMessage);
@@ -126,7 +126,7 @@ function isValidatorOptions(
   return methodCfg !== true && method in ValidatorsImpl.prototype;
 }
 
-function ensureLocations(config: ParamSchema, defaults: Location[]) {
+function ensureLocations(config: ParamSchema, defaults: Location[]) { // 验证 position 参数是否有效
   // .filter(Boolean) is done because in can be undefined -- which is not going away from the type
   // See https://github.com/Microsoft/TypeScript/pull/29955 for details
   const locations = Array.isArray(config.in)

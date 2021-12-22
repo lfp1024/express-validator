@@ -76,7 +76,7 @@ export class ValidatorsImpl<Chain> implements Validators<Chain> {
   }
 
   // Standard validators
-  private addStandardValidation(validator: StandardValidator, ...options: any[]) {
+  private addStandardValidation(validator: StandardValidator, ...options: any[]) { // 添加 validator 自带的验证器
     return this.addItem(new StandardValidation(validator, this.negateNext, options));
   }
 

@@ -14,7 +14,7 @@ export class Sanitization implements ContextItem {
     const { path, location } = meta;
 
     const runCustomSanitizer = async () => {
-      const sanitizerValue = this.sanitizer(value, meta);
+      const sanitizerValue = this.sanitizer(value, meta); // 调用 customerSanitizer.option 方法
       return Promise.resolve(sanitizerValue);
     };
 

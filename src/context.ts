@@ -74,7 +74,7 @@ export class Context {
 
   addError(message: any, value: any, meta: Meta): void;
   addError(message: any, nestedErrors: ValidationError[]): void;
-  addError(message: any, valueOrNestedErrors: any, meta?: Meta) {
+  addError(message: any, valueOrNestedErrors: any, meta?: Meta) { // 添加异常信息。
     const msg = message || this.message || 'Invalid value';
     if (meta) {
       this._errors.push({

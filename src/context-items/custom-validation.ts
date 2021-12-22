@@ -7,9 +7,9 @@ export class CustomValidation implements ContextItem {
 
   constructor(private readonly validator: CustomValidator, private readonly negated: boolean) {}
 
-  async run(context: Context, value: any, meta: Meta) {
+  async run(context: Context, value: any, meta: Meta) { // 自定义 custom 执行的地方。value 为参数值。validator 为 options 方法
     try {
-      const result = this.validator(value, meta);
+      const result = this.validator(value, meta); // 调用自定义的 options 方法。e.g. custom.options
       const actualResult = await result;
       const isPromise = result && result.then;
       const failed = this.negated ? actualResult : !actualResult;

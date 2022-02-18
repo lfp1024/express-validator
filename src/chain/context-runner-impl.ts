@@ -22,7 +22,7 @@ export class ContextRunnerImpl implements ContextRunner { // 执行入口
     const context =
       this.builderOrContext instanceof Context
         ? this.builderOrContext
-        : this.builderOrContext.build();
+        : this.builderOrContext.build(); // 调用 build 构建 Context 实例
     const instances = this.selectFields(req, context.fields, context.locations); // field 即当前验证的字段
     context.addFieldInstances(instances);
 

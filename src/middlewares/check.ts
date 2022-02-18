@@ -32,8 +32,8 @@ export function check(
   return Object.assign(
     middleware,
     bindAll(runner),
-    bindAll(new SanitizersImpl(builder, middleware as any)), // 绑定所有sanitizer
-    bindAll(new ValidatorsImpl(builder, middleware as any)), // 绑定所有 validator
+    bindAll(new SanitizersImpl(builder, middleware as any)), // 绑定所有支持及自定义的 sanitizer
+    bindAll(new ValidatorsImpl(builder, middleware as any)), // 绑定所有支持的 validator
     bindAll(new ContextHandlerImpl(builder, middleware as any)),
     { builder },
   );

@@ -66,7 +66,7 @@ export function checkSchema(
 ): ValidationChain[] & {
   run: (req: Request) => Promise<ResultWithContext[]>;
 } {
-  const chains = Object.keys(schema).map(field => { // field 为输入的参数key，config为该参数的验证逻辑
+  const chains = Object.keys(schema).map(field => { // field 为输入的参数key，config为该参数的若干验证逻辑
     const config = schema[field];
     const chain = check(field, ensureLocations(config, defaultLocations), config.errorMessage);
 
